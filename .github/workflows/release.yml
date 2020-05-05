@@ -37,5 +37,3 @@ jobs:
           git fetch
           git merge origin/release
           git push origin master
-          git push --tags
-
