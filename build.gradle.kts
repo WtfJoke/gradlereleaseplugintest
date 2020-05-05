@@ -10,12 +10,6 @@ plugins {
 
 group = "com.example"
 
-//release {
-//	with (propertyMissing("git") as net.researchgate.release.GitAdapter.GitConfig) {
-//		requireBranch = """master|develop|release\/.+"""
-//	}
-//}
-
 repositories {
 	mavenCentral()
 }
