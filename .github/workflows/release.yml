@@ -8,10 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Prepare npmrc
-        run: |
-          echo ${{ github.event.label.name }}
       - uses: actions/github-script@0.9.0
+        if: ${{ github.event.label.name == 'release' }}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
