@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import net.researchgate.release.GitAdapter.GitConfig
 
 plugins {
 	id("org.springframework.boot") version "2.2.6.RELEASE"
@@ -9,6 +10,12 @@ plugins {
 }
 
 group = "com.example"
+
+release {
+	(getProperty("git") as GitConfig).apply {
+		requireBranch = "release"
+	}
+}
 
 repositories {
 	mavenCentral()
