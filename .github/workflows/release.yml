@@ -28,8 +28,11 @@ jobs:
         run: git checkout -b release
       - name: Bump version + Tag
         run: ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=${{github.event.issue.title}}
+      - uses: actions/checkout@v2
+        with:
+          ref: master
       - name: Merge to master
         run: | 
-          git checkout master
+          git remote set-url origin "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
           git merge release
 
