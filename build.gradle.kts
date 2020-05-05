@@ -12,6 +12,12 @@ group = "com.example"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
+release {
+	with (propertyMissing("git") as net.researchgate.release.GitAdapter.GitConfig) {
+		requireBranch = """master|develop|release\/.+"""
+	}
+}
+
 repositories {
 	mavenCentral()
 }
