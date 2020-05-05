@@ -17,6 +17,11 @@ jobs:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
             console.log("issue title", context.issue.title)
+      - name: Set Git Author and remote
+        run: |
+          git config user.email "octocat@github.com"
+          git config user.name "Octocat"
+          git remote set-url origin https://bla:${{secrets.GITHUB_TOKEN}}@github.com/WtfJoke/gradlereleaseplugintest.git
       - name: Create release branch
         run: git checkout -b release
       - name: Bump version + Tag
