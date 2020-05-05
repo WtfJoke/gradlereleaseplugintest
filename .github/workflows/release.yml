@@ -21,7 +21,7 @@ jobs:
         run: |
           git config user.email "octocat@github.com"
           git config user.name "Octocat"
-          git remote set-url origin "https://${GITHUB_ACTOR}:${secrets.GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git remote set-url origin "https://${{GITHUB_ACTOR}}:${{secrets.GITHUB_TOKEN}}@github.com/${{GITHUB_REPOSITORY}}.git"
       - name: Create release branch
         run: git checkout -b release
       - name: Bump version + Tag
