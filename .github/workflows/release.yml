@@ -36,4 +36,6 @@ jobs:
           git remote set-url origin "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git"
           git fetch
           git merge origin/release
+          git push origin master
+          git push --tags
 
