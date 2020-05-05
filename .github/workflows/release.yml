@@ -18,11 +18,11 @@ jobs:
           script: |
             console.log("issue title", context.issue.title)
       - name: Create release branch
-        run: git checkout -b release/${{github.event.issue.title}}
+        run: git checkout release
       - name: Bump version + Tag
         run: ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=${{github.event.issue.title}}
       - name: Merge to master
         run: | 
           git checkout master
-          git merge release/${{github.event.issue.title}}
+          git merge release
 
