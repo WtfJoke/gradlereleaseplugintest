@@ -37,3 +37,4 @@ jobs:
           git fetch
           git merge origin/release
           git push origin master
+          git push origin --delete release
