@@ -33,6 +33,6 @@ jobs:
         run: |
           git checkout master
           git merge release
-          git push master
+          git push origin master
       - name: Fail
         run: git bla
