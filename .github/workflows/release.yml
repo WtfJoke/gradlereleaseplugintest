@@ -11,9 +11,9 @@ jobs:
     steps:
       - name: Setup Git Repo
         run: |
+          git clone https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git .
           git config user.email "octocat@github.com"
           git config user.name ${GITHUB_ACTOR}
-          git clone set-url origin "https://${GITHUB_ACTOR}:${{secrets.GITHUB_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git" .
       - name: Bump version + Tag
         run: ./gradlew release -Prelease.useAutomaticVersion=true
       - name: Merge to master
