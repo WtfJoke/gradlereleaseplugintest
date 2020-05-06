@@ -19,7 +19,8 @@ jobs:
         run: |
           version = `./gradlew properties -q | grep "^version:" | awk '{print $2}'`
           echo $version
-
+      - name: Fail
+        run: git bla
       - name: Bump version + Tag
         run: ./gradlew release -Prelease.useAutomaticVersion=true
       - name: Merge to master
@@ -27,5 +28,3 @@ jobs:
           git checkout master
           git merge release
           git push master
-      - name: Fail
-        run: git bla
