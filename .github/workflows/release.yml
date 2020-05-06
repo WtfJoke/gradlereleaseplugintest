@@ -17,7 +17,7 @@ jobs:
           git checkout -b develop_new_snapshot
       - name: Read current version
         run: |
-          version = `./gradlew properties -q | grep "^version:" | awk '{print $2}'`
+          version=`./gradlew properties -q | grep "^version:" | awk '{print $2}'`
           echo $version
       - name: Fail
         run: git bla
