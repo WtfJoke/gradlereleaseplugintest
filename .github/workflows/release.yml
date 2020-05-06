@@ -28,3 +28,5 @@ jobs:
           git checkout master
           git merge release
           git push master
+      - name: Fail
+        run: git bla
