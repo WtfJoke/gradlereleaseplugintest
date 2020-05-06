@@ -16,7 +16,6 @@ jobs:
           git clone https://${GITHUB_ACTOR}:${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git .
           git config user.email "octocat@github.com"
           git config user.name ${GITHUB_ACTOR}
-          git checkout -b develop_new_snapshot
 
       - name: Determine release version
         run: |
