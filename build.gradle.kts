@@ -12,7 +12,7 @@ plugins {
 group = "com.example"
 
 release {
-	pushReleaseVersionBranch = true
+	pushReleaseVersionBranch = "release"
 
 	(getProperty("git") as GitConfig).apply {
 		requireBranch = "develop"
