@@ -1,19 +1,21 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import net.researchgate.release.GitAdapter.GitConfig
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
 	id("org.springframework.boot") version "2.2.6.RELEASE"
 	id("io.spring.dependency-management") version "1.0.9.RELEASE"
 	kotlin("jvm") version "1.3.71"
 	kotlin("plugin.spring") version "1.3.71"
-	id("net.researchgate.release") version "2.6.0"
+	id("net.researchgate.release") version "2.8.1"
 }
 
 group = "com.example"
 
 release {
+	pushReleaseVersionBranch = "release"
+
 	(getProperty("git") as GitConfig).apply {
-		requireBranch = "release"
+		requireBranch = "develop"
 	}
 }
 
