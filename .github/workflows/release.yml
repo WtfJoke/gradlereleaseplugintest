@@ -16,11 +16,10 @@ jobs:
           git config user.name ${GITHUB_ACTOR}
           git checkout -b develop_new_snapshot
       - name: Read current version
-        uses: actions/github-script@0.9.0
-        with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
-          script: |
-            cat gradle.properties
+        run: |
+          version = ./gradlew properties -q | grep "^version:" | awk '{print $2}'
+          echo $version
+
       - name: Bump version + Tag
         run: ./gradlew release -Prelease.useAutomaticVersion=true
       - name: Merge to master
