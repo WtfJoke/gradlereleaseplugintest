@@ -20,17 +20,19 @@ jobs:
           version=`./gradlew properties -q | grep "^version:" | awk '{print $2}'`
           version_without_snapshot=${version%"-SNAPSHOT"}
           echo $version_without_snapshot
-          echo "::set-env name=version_without_snapshot::${version_without_snapshot}"
           sudo apt-get install -y node-semver
-          echo "hi"
           newversion=`semver -i major $version_without_snapshot`
           echo $newversion
-      - name: Fail
-        run: git bla
+          echo "::set-env name=NEW_VERSION::${newversion}"
+
       - name: Bump version + Tag
-        run: ./gradlew release -Prelease.useAutomaticVersion=true
+        env:
+          NEW_VERSION:${{env.NEW_VERSION}}
+        run: ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=$NEW_VERSION
       - name: Merge to master
         run: |
           git checkout master
           git merge release
           git push master
+      - name: Fail
+        run: git bla
