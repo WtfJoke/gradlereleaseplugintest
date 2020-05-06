@@ -20,7 +20,7 @@ jobs:
           version=`./gradlew properties -q | grep "^version:" | awk '{print $2}'`
           version_without_snapshot=${version%"-SNAPSHOT"}
           echo $version_without_snapshot
-          echo "::set-env name=action_state::${version_without_snapshot}"
+          echo "::set-env name=version_without_snapshot::${version_without_snapshot}"
       - name: Fail
         run: git bla
       - name: Bump version + Tag
