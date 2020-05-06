@@ -15,7 +15,7 @@ release {
 	pushReleaseVersionBranch = "release"
 
 	(getProperty("git") as GitConfig).apply {
-		requireBranch = "develop"
+		requireBranch = "develop|develop_new_snapshot"
 	}
 }
 
