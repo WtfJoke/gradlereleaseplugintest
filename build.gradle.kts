@@ -13,7 +13,7 @@ group = "com.example"
 
 release {
 	(getProperty("git") as GitConfig).apply {
-		requireBranch = "release"
+		requireBranch = "develop"
 	}
 }
 
