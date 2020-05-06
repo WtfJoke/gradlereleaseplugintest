@@ -23,7 +23,7 @@ jobs:
           echo "::set-env name=version_without_snapshot::${version_without_snapshot}"
           sudo apt-get install -y node-semver
           echo "hi"
-          newversion=`node-semver -i major version_without_snapshot`
+          newversion=`semver -i major $version_without_snapshot`
           echo $newversion
       - name: Fail
         run: git bla
