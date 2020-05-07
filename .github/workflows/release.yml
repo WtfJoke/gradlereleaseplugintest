@@ -7,7 +7,7 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: ${{ startsWith( github.event.label.name, 'release:' )}}
+    if: ${{ startsWith( github.event.label.name, 'release:' ) && github.event.issue.state == 'open'}}
     steps:
       - name: Install semver
         run: sudo apt-get install -y node-semver
@@ -48,10 +48,12 @@ jobs:
         env:
           BUMP_LEVEL: ${{ steps.determine-bump-level.outputs.bump_level }}
         run: |
+          echo "Triggering a $BUMP_LEVEL release"
+          
           version=`./gradlew properties -q | grep "^version:" | awk '{print $2}'`
           newversion=`semver -i $BUMP_LEVEL $version`
-          
-          echo "New $BUMP_LEVEL release - Current version: $version New version: $newversion"
+    
+          echo "Current version: $version New version: $newversion"
           echo "::set-env name=NEW_VERSION::${newversion}"
 
       - name: Bump version + Tag
