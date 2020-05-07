@@ -18,14 +18,14 @@ jobs:
           git config user.name "Release-Bot"
       - uses: actions/github-script@0.9.0
         name: Validate Labels
-          with:
-            github-token: ${{secrets.GITHUB_TOKEN}}
-            script: |
-              if (context.payload.issue.labels.length > 1) {
-                const error_msg = "More than one label provided"
-                console.log(`::set-env name=ERROR_MESSAGE::${error_msg}`)
-                throw new Error(error_msg)
-              }
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            if (context.payload.issue.labels.length > 1) {
+              const error_msg = "More than one label provided"
+              console.log(`::set-env name=ERROR_MESSAGE::${error_msg}`)
+              throw new Error(error_msg)
+            }
       - uses: actions/github-script@0.9.0
         name: Determine bump level
         id: determine-bump-level
