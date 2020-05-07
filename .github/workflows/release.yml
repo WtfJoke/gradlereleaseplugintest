@@ -11,11 +11,6 @@ jobs:
     steps:
       - name: Install semver
         run: sudo apt-get install -y node-semver
-      - name: Setup Git Repo
-        run: |
-          git clone https://${GITHUB_ACTOR}:${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git .
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.name "Release-Bot"
       - uses: actions/github-script@0.9.0
         name: Validate Labels
         with:
@@ -26,6 +21,11 @@ jobs:
               console.log(`::set-env name=ERROR_MESSAGE::${error_msg}`)
               throw new Error(error_msg)
             }
+      - name: Setup Git Repo
+        run: |
+          git clone https://${GITHUB_ACTOR}:${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git .
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "Release-Bot"
       - uses: actions/github-script@0.9.0
         name: Determine bump level
         id: determine-bump-level
@@ -59,8 +59,6 @@ jobs:
           echo "::set-env name=NEW_VERSION::${newversion}"
 
       - name: Bump version + Tag
-        env:
-          NEW_VERSION: ${{env.NEW_VERSION}}
         run: ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=$NEW_VERSION
       - name: Merge to master
         run: |
@@ -70,8 +68,6 @@ jobs:
 
       - uses: actions/github-script@0.9.0
         name: Comment Issue
-        env:
-          NEW_VERSION: ${{ env.NEW_VERSION }}
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
