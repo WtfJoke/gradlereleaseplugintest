@@ -50,7 +50,8 @@ jobs:
         run: |
           version=`./gradlew properties -q | grep "^version:" | awk '{print $2}'`
           newversion=`semver -i $BUMP_LEVEL $version`
-          echo `New $BUMP_LEVEL release - Current version: $version New version: $newversion`
+          
+          echo "New $BUMP_LEVEL release - Current version: $version New version: $newversion"
           echo "::set-env name=NEW_VERSION::${newversion}"
 
       - name: Bump version + Tag
