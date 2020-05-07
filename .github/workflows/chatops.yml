@@ -1,0 +1,21 @@
+name: ChatOps Dispatch
+on:
+  issue_comment:
+    types: [created]
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            commandToWorkflow = {"release":
+
+            context.comment.body
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '👋 Thanks for reporting!'
+            })
