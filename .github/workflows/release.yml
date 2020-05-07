@@ -48,7 +48,7 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            let message = ":pray: Deployment started ... this may take a while :hourglass_flowing_sand:"
+            let message = ":pray: Release process started ... this may take a while :hourglass_flowing_sand:"
 
             await github.issues.createComment({
               issue_number: context.issue.number,
@@ -70,6 +70,20 @@ jobs:
 
           echo "Current version: $version New version: $newversion"
           echo "::set-env name=NEW_VERSION::${newversion}"
+
+      - uses: actions/github-script@0.9.0
+        name: Comment release version
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            let message = ":bookmark: Release '$newversion' will be created"
+
+            await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            })
 
       - name: Bump version + Tag
         run: ./gradlew release -Prelease.useAutomaticVersion=true -Prelease.releaseVersion=$NEW_VERSION
