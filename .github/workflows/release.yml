@@ -29,25 +29,25 @@ jobs:
       - uses: actions/github-script@0.9.0
         name: Determine bump level
         id: determine-bump-level
-          env:
-            LABEL_PREFIX: 'release:'
-          with:
-            github-token: ${{secrets.GITHUB_TOKEN}}
-            script: |
-              /*
-                the prefix of the label
-              */
-              const increment_level = context.payload.issue.labels.find(label => label.name.startsWith(process.env.LABEL_PREFIX) )
+        env:
+          LABEL_PREFIX: 'release:'
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            /*
+              the prefix of the label
+            */
+            const increment_level = context.payload.issue.labels.find(label => label.name.startsWith(process.env.LABEL_PREFIX) )
 
-              if (!increment_level) {
-                const error_msg = "Please add a bump Version"
-                console.log(`::set-env name=ERROR_MESSAGE::${error_msg}`)
-                throw new Error(error_msg)
-              }
+            if (!increment_level) {
+              const error_msg = "Please add a bump Version"
+              console.log(`::set-env name=ERROR_MESSAGE::${error_msg}`)
+              throw new Error(error_msg)
+            }
 
-              const bump_level = increment_level.name.substr(process.env.LABEL_PREFIX.length)
-              console.log(`Detected bump level ${bump_level}`)
-              console.log(`::set-env name==BUMP_LEVEL::${bump_level}`)
+            const bump_level = increment_level.name.substr(process.env.LABEL_PREFIX.length)
+            console.log(`Detected bump level ${bump_level}`)
+            console.log(`::set-env name==BUMP_LEVEL::${bump_level}`)
       - name: Determine release version
         run: |
           echo "Triggering a $BUMP_LEVEL release"
