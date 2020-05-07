@@ -21,11 +21,6 @@ jobs:
               console.log(`::set-env name=ERROR_MESSAGE::${error_msg}`)
               throw new Error(error_msg)
             }
-      - name: Setup Git Repo
-        run: |
-          git clone https://${GITHUB_ACTOR}:${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git .
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config user.name "Release-Bot"
       - uses: actions/github-script@0.9.0
         name: Determine bump level
         id: determine-bump-level
@@ -48,6 +43,24 @@ jobs:
             const bump_level = increment_level.name.substr(process.env.LABEL_PREFIX.length)
             console.log(`Detected bump level ${bump_level}`)
             console.log(`::set-env name==BUMP_LEVEL::${bump_level}`)
+      - uses: actions/github-script@0.9.0
+        name: Comment release start
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            let message = ":pray: Deployment started ... this may take a while :hourglass_flowing_sand:"
+
+            await github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            })
+      - name: Setup Git Repo
+        run: |
+          git clone https://${GITHUB_ACTOR}:${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}@github.com/${GITHUB_REPOSITORY}.git .
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "Release-Bot"
       - name: Determine release version
         run: |
           echo "Triggering a $BUMP_LEVEL release"
