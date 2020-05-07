@@ -7,7 +7,7 @@ jobs:
   create-release:
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    if: ${{ startsWith( github.event.label.name, 'release:' ) && github.event.issue.state == 'open'}}
+    if: ${{ startsWith(github.event.label.name, 'release:') && github.event.issue.state == 'open'}}
     steps:
       - name: Install semver
         run: sudo apt-get install -y node-semver
