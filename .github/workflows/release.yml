@@ -62,7 +62,7 @@ jobs:
           version_without_snapshot=${version%"-SNAPSHOT"}
           echo $BUMP_LEVEL
           echo $version_without_snapshot
-          newversion=`semver -i BUMP_LEVEL $version_without_snapshot`
+          newversion=`semver -i $BUMP_LEVEL $version_without_snapshot`
           echo $newversion
           echo "::set-env name=NEW_VERSION::${newversion}"
 
