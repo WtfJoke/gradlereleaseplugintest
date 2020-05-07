@@ -59,10 +59,7 @@ jobs:
           BUMP_LEVEL: ${{ steps.determine-bump-level.outputs.bump_level }}
         run: |
           version=`./gradlew properties -q | grep "^version:" | awk '{print $2}'`
-          version_without_snapshot=${version%"-SNAPSHOT"}
-          echo $BUMP_LEVEL
-          echo $version_without_snapshot
-          newversion=`semver -i $BUMP_LEVEL $version_without_snapshot`
+          newversion=`semver -i $BUMP_LEVEL $version`
           echo $newversion
           echo "::set-env name=NEW_VERSION::${newversion}"
 
