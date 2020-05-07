@@ -48,10 +48,12 @@ jobs:
         env:
           BUMP_LEVEL: ${{ steps.determine-bump-level.outputs.bump_level }}
         run: |
+          echo "Triggering a $BUMP_LEVEL release"
+          
           version=`./gradlew properties -q | grep "^version:" | awk '{print $2}'`
           newversion=`semver -i $BUMP_LEVEL $version`
-          
-          echo "New $BUMP_LEVEL release - Current version: $version New version: $newversion"
+    
+          echo "Current version: $version New version: $newversion"
           echo "::set-env name=NEW_VERSION::${newversion}"
 
       - name: Bump version + Tag
