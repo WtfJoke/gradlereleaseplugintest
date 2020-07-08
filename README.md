@@ -1,1 +1,3 @@
-# Trigger Release by Github Issue using Github Actions and Gradle Release Plugin
+# Gradle Release Plugin Github Action Test
+
+Sample project for demonstrating triggering a Release by an Issue using Github Actions
