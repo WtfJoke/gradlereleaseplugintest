@@ -11,11 +11,10 @@ jobs:
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            payload = github.event.client_payload.github.payload
-            echo payload
+            payload = context.payload
             github.issues.createComment({
-              issue_number: context.issue.number,
+              issue_number: payload.issue.number,
               owner: payload.repository.owner,
               repo: payload.repository.full_name,
-              body: '👋 Thanks for reporting!'
+              body: '👋 hi there!'
             })
