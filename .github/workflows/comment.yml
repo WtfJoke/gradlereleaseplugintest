@@ -1,0 +1,21 @@
+name: comment
+on:
+  repository_dispatch:
+    types: [release-command]
+jobs:
+  example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add reaction
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            payload = github.event.client_payload.github.payload
+            echo payload
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: payload.repository.owner,
+              repo: payload.repository.full_name,
+              body: '👋 Thanks for reporting!'
+            })
