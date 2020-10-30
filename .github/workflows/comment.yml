@@ -15,9 +15,9 @@ jobs:
 
             console.log(JSON.stringify(payload))
 
-            github.issues.createComment({
-              issue_number: payload.issue.number,
-              owner: payload.repository.owner.login,
-              repo: payload.repository.name,
-              body: '👋 hi there!'
-            })
+#            github.issues.createComment({
+#              issue_number: payload.issue.number,
+#              owner: payload.repository.owner.login,
+#              repo: payload.repository.name,
+#              body: '👋 hi there!'
+#            })
