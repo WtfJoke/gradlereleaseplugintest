@@ -6,16 +6,18 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
+      - name: Print payload
+        run: echo "${{github.payload}}"
       - uses: actions/github-script@v3
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}
           script: |
-            commandToWorkflow = {"release":
+            commandToWorkflow = {"release":"release-command"}
+            console.log(JSON.stringify(context.payload))
 
-            context.comment.body
-            github.issues.createComment({
-              issue_number: context.issue.number,
+            github.repos.createDispatchEvent({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '👋 Thanks for reporting!'
-            })
+              event_type: "release-command",
+              client_payload: context.payload
+            });
