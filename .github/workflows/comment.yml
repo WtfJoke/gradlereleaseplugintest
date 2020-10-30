@@ -9,12 +9,15 @@ jobs:
       - name: Add reaction
         uses: actions/github-script@v3
         with:
-          github-token: ${{secrets.GITHUB_TOKEN}}
+          github-token: ${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}
           script: |
-            payload = context.payload
+            payload = context.payload.client_payload
+
+            console.log(JSON.stringify(payload))
+
             github.issues.createComment({
               issue_number: payload.issue.number,
-              owner: payload.repository.owner,
-              repo: payload.repository.full_name,
+              owner: payload.repository.owner.login,
+              repo: payload.repository.name,
               body: '👋 hi there!'
             })
