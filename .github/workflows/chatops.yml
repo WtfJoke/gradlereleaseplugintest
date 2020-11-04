@@ -6,6 +6,8 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
+      - name: Print bash version
+        run: bash --version
       - name: Print payload
         run: echo "${{github.payload}}"
       - uses: actions/github-script@v3
