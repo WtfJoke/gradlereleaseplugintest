@@ -19,6 +19,7 @@ jobs:
             comment = context.payload.comment.body;
             if (!comment.startsWith("/")) {
               console.log("Commands need to start with '/'");
+              return 
             }
             lookupKey = comment.substring(1); // cut first '/'
             event_type = commandToWorkflow[lookupKey];
