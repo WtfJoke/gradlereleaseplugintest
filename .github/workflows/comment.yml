@@ -15,6 +15,13 @@ jobs:
 
             console.log(JSON.stringify(payload))
 
+            github.reactions.createForIssueComment({
+              owner: payload.repository.owner.login,
+              repo: payload.repository.name,
+              comment_id: payload.comment.id,
+              content: "rocket",
+            });
+
 #            github.issues.createComment({
 #              issue_number: payload.issue.number,
 #              owner: payload.repository.owner.login,
