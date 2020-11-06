@@ -14,11 +14,18 @@ jobs:
         with:
           github-token: ${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}
           script: |
-            commandToWorkflow = {"release":"release-command"}
+            commandToWorkflow = {"release":"release-command", "deploy": "deploy-command"}
             console.log(JSON.stringify(context.payload))
             comment = context.payload.comment.body
-            console.log(comment)
+            comment = context.payload.comment.body
+            if (!comment.startsWith('/')) {
+              console.log("Commands need to start with '/')
+            }
 
+            lookupKey = comment.substring(1) // cut first '/'
+            event_type = commandToWorkflow[lookupKey]
+            console.log(event_type)
+        
             github.repos.createDispatchEvent({
               owner: context.repo.owner,
               repo: context.repo.repo,
