@@ -9,13 +9,15 @@ jobs:
       - name: Print bash version
         run: bash --version
       - name: Print payload
-        run: echo "${{github.event}}"
+        run: echo "${{toJSON(github.event)}}"
       - uses: actions/github-script@v3
         with:
           github-token: ${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}
           script: |
             commandToWorkflow = {"release":"release-command"}
             console.log(JSON.stringify(context.payload))
+            comment = context.payload.comment.body
+            console.log(comment)
 
             github.repos.createDispatchEvent({
               owner: context.repo.owner,
