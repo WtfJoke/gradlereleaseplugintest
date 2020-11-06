@@ -21,8 +21,8 @@ jobs:
               console.log("Commands need to start with '/')
             }
 
-            lookupKey = comment.substring(1) // cut first '/'
-            event_type = commandToWorkflow[lookupKey]
+            //lookupKey = comment.substring(1) // cut first '/'
+            //event_type = commandToWorkflow[lookupKey]
             console.log(event_type)
         
             github.repos.createDispatchEvent({
