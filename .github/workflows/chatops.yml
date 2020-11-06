@@ -23,8 +23,9 @@ jobs:
             }
             lookupKey = comment.substring(1); // cut first '/'
             event_type = commandToWorkflow[lookupKey];
-            console.log(`Event ${event_type}`);
+          
             if (event_type !== undefined) {
+              console.log(`Command ${lookupKey}`);
               console.log(`Dispatch event ${event_type}`);
               github.repos.createDispatchEvent({
                 owner: context.repo.owner,
