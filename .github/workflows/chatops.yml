@@ -31,7 +31,7 @@ jobs:
                 repo: context.repo.repo,
                 event_type: "release-command",
                 client_payload: context.payload
-              });:  
+              });
             }
         
             
