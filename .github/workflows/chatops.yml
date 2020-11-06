@@ -9,7 +9,7 @@ jobs:
       - name: Print bash version
         run: bash --version
       - name: Print payload
-        run: echo "${{github.payload}}"
+        run: echo "${{context.payload}}"
       - uses: actions/github-script@v3
         with:
           github-token: ${{secrets.WRITE_TO_REPO_PERSONAL_ACCESS_TOKEN}}
