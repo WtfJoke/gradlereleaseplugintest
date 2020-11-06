@@ -23,11 +23,15 @@ jobs:
             }
             lookupKey = comment.substring(1); // cut first '/'
             event_type = commandToWorkflow[lookupKey];
-            console.log(event_type);
+            console.log(`Event ${event_type}`);
+            if (event_type !== undefined) {
+              console.log(`Dispatch event ${event_type}`);
+              github.repos.createDispatchEvent({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                event_type: "release-command",
+                client_payload: context.payload
+              });:  
+            }
         
-            github.repos.createDispatchEvent({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              event_type: "release-command",
-              client_payload: context.payload
-            });
+            
