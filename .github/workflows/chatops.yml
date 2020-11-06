@@ -16,6 +16,7 @@ jobs:
           script: |
             commandToWorkflow = {"release":"release-command", "deploy": "deploy-command"}
             console.log(JSON.stringify(context.payload))
+            comment = context.payload.comment.body;
             if (!comment.startsWith("/")) {
               console.log("Commands need to start with '/'");
             }
