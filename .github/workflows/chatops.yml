@@ -16,14 +16,12 @@ jobs:
           script: |
             commandToWorkflow = {"release":"release-command", "deploy": "deploy-command"}
             console.log(JSON.stringify(context.payload))
-            comment = context.payload.comment.body
-            //if (!comment.startsWith('/')) {
-            //  console.log("Commands need to start with '/')
-            //}
-
-            lookupKey = comment.substring(1) // cut first '/'
-            event_type = commandToWorkflow[lookupKey]
-            console.log(event_type)
+            if (!comment.startsWith("/")) {
+              console.log("Commands need to start with '/'");
+            }
+            lookupKey = comment.substring(1); // cut first '/'
+            event_type = commandToWorkflow[lookupKey];
+            console.log(event_type);
         
             github.repos.createDispatchEvent({
               owner: context.repo.owner,
