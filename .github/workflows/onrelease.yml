@@ -15,7 +15,7 @@ jobs:
       - run: |
           ls
       - name: Update major version tag
-      - run: |
+        run: |
           major=`echo $TAG_NAME | cut -d. -f1`
           git tag $major
           git push -f origin $major
