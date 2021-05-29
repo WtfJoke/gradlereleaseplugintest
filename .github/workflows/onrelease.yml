@@ -6,10 +6,16 @@ on:
 jobs:
   update-tag:
     runs-on: ubuntu-latest
+    env:
+      TAG_NAME: ${{github.event.release.tag_name}}
     steps:
-      - uses: actions/checkout@v2
       - run: |
           echo ${{github.event.release.tag_name}}
+      - uses: actions/checkout@v2
       - run: |
-          echo $GITHUB_REF
-          echo $GITHUB_SHA
+          ls
+      - name: Update major version tag
+      - run: |
+          major=`echo $TAG_NAME | cut -d. -f1`
+          git tag $major
+          git push -f origin $major
