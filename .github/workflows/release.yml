@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Install semver
         run: sudo apt-get install -y node-semver
-      - uses: actions/github-script@0.9.0
+      - uses: actions/github-script@v4.0.2
         name: Validate Labels
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -21,7 +21,7 @@ jobs:
               console.log(`::set-env name=ERROR_MESSAGE::${error_msg}`)
               throw new Error(error_msg)
             }
-      - uses: actions/github-script@0.9.0
+      - uses: actions/github-script@v4.0.2
         name: Determine bump level
         id: determine-bump-level
         env:
@@ -43,7 +43,7 @@ jobs:
             const bump_level = increment_level.name.substr(process.env.LABEL_PREFIX.length)
             console.log(`Detected bump level ${bump_level}`)
             console.log(`::set-env name==BUMP_LEVEL::${bump_level}`)
-      - uses: actions/github-script@0.9.0
+      - uses: actions/github-script@v4.0.2
         name: Comment release start
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -71,7 +71,7 @@ jobs:
           echo "Current version: $version New version: $newversion"
           echo "::set-env name=NEW_VERSION::${newversion}"
 
-      - uses: actions/github-script@0.9.0
+      - uses: actions/github-script@v4.0.2
         name: Comment release version
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -93,7 +93,7 @@ jobs:
           git merge release
           git push origin master
 
-      - uses: actions/github-script@0.9.0
+      - uses: actions/github-script@v4.0.2
         name: Comment Issue
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
@@ -110,7 +110,7 @@ jobs:
               repo: context.repo.repo,
               state: "closed"
             });
-      - uses: actions/github-script@0.9.0
+      - uses: actions/github-script@v4.0.2
         name: Comment Error to Issue
         if: ${{ failure() }}
         env:
